@@ -1,0 +1,40 @@
+---
+title: "Tasks 2 and 3"
+author: "Bryan Sandor"
+format: html
+---
+# Preamble
+This is a temporary placeholder until I have access to the vectors from Task 1
+
+```{r}
+patient <- c("Subject_1", "Subject_2", "Subject_3")
+pre_bp <- c(119, 132, 118)
+post_bp <- c(132, 119, 127)
+diff_bp <- pre_bp - post_bp
+```
+
+
+# Task 2: Basic Data Frame practice
+This is continued from the previous example, wherein four vectors were used:
+`patient`, `pre_bp`, `post_bp`, and `diff_bp`.
+
+1. First we create a data frame object with the four columns corresponding to the
+previously mentioned vectors:
+```{r}
+bd_df <- data.frame(patient, pre_bp, post_bp, diff_bp)
+bd_df
+```
+
+2. Now we return just the rows where `diff_bp` is negative (indicating a decrease
+in blood pressure).
+```{r}
+for(i in 1:length(bd_df$diff_bp)){
+  if (bd_df$diff_bp[i] < 0) {
+    print(bd_df[[i, ]])
+  }
+}
+```
+
+
+# Task 3: List practice
+T

@@ -1,0 +1,9 @@
+[
+  {
+    "objectID": "sandor.html",
+    "href": "sandor.html",
+    "title": "Tasks 2 and 3",
+    "section": "",
+    "text": "Preamble\nThis is a temporary placeholder until I have access to the vectors from Task 1\n\npatient &lt;- c(\"Subject_1\", \"Subject_2\")\npre_bp &lt;- c(119, 132)\npost_bp &lt;- c(132, 199)\ndiff_bp &lt;- pre_bp - post_bp\n\n\n\nTask 2: Basic Data Frame Practice\nThis is continued from the previous example, wherein four vectors were used: patient, pre_bp, post_bp, and diff_bp.\n\nFirst we create a data frame object with the four columns corresponding to the previously mentioned vectors:\n\n\nbd_df &lt;- data.frame(patient, pre_bp, post_bp, diff_bp)\nbd_df\n\n    patient pre_bp post_bp diff_bp\n1 Subject_1    119     132     -13\n2 Subject_2    132     199     -67\n\n\n\nNow we return just the rows where diff_bp is negative (indicating a decrease in blood pressure)."
+  }
+]
