@@ -149,14 +149,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h1>Preamble</h1>
 <p>This is a temporary placeholder until I have access to the vectors from Task 1</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>patient <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"Subject_1"</span>, <span class="st">"Subject_2"</span>)</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>pre_bp <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">119</span>, <span class="dv">132</span>)</span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>post_bp <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">132</span>, <span class="dv">199</span>)</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>patient <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"Subject_1"</span>, <span class="st">"Subject_2"</span>, <span class="st">"Subject_3"</span>)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>pre_bp <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">119</span>, <span class="dv">132</span>, <span class="dv">118</span>)</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>post_bp <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">132</span>, <span class="dv">119</span>, <span class="dv">127</span>)</span>
 <span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>diff_bp <span class="ot">&lt;-</span> pre_bp <span class="sc">-</span> post_bp</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </section>
 <section id="task-2-basic-data-frame-practice" class="level1">
-<h1>Task 2: Basic Data Frame Practice</h1>
+<h1>Task 2: Basic Data Frame practice</h1>
 <p>This is continued from the previous example, wherein four vectors were used: <code>patient</code>, <code>pre_bp</code>, <code>post_bp</code>, and <code>diff_bp</code>.</p>
 <ol type="1">
 <li>First we create a data frame object with the four columns corresponding to the previously mentioned vectors:</li>
@@ -167,12 +167,30 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="cell-output cell-output-stdout">
 <pre><code>    patient pre_bp post_bp diff_bp
 1 Subject_1    119     132     -13
-2 Subject_2    132     199     -67</code></pre>
+2 Subject_2    132     119      13
+3 Subject_3    118     127      -9</code></pre>
 </div>
 </div>
 <ol start="2" type="1">
 <li>Now we return just the rows where <code>diff_bp</code> is negative (indicating a decrease in blood pressure).</li>
 </ol>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span>(i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">length</span>(bd_df<span class="sc">$</span>diff_bp)){</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (bd_df<span class="sc">$</span>diff_bp[i] <span class="sc">&lt;</span> <span class="dv">0</span>) {</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">print</span>(bd_df[i, ])</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>    patient pre_bp post_bp diff_bp
+1 Subject_1    119     132     -13
+    patient pre_bp post_bp diff_bp
+3 Subject_3    118     127      -9</code></pre>
+</div>
+</div>
+</section>
+<section id="task-3-list-practice" class="level1">
+<h1>Task 3: List practice</h1>
+<p>T</p>
 
 
 </section>

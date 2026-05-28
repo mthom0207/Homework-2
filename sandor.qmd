@@ -30,7 +30,7 @@ in blood pressure).
 ```{r}
 for(i in 1:length(bd_df$diff_bp)){
   if (bd_df$diff_bp[i] < 0) {
-    print(bd_df[[i, ]])
+    print(bd_df[i, ])
   }
 }
 ```
