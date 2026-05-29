@@ -3,3 +3,268 @@ title: "HW2"
 format: html
 editor: visual
 ---
+
+# Homework 2
+
+## Task 1 - Vectors
+
+### Create Vectors
+
+```{r}
+bpBefore = c(130, 128, 116, 124, 133, 134, 118, 126, 114, 127, 141, 138, 128, 140, 137, 131, 120, 128, 139, 135)
+bpAfter = c( 114, 98, 113, 99, 107, 116, 113, 111, 119, 117, 101, 119, 130, 122, 106, 106, 124, 102, 117, 113)
+```
+
+### Assign Names to Each Vector
+
+```{r}
+names = paste("Subject", 1:20, sep = "_")
+
+names(bpBefore) = names
+names(bpAfter) = names
+
+bpAfter[10]
+```
+
+### Calculate Change in Blood Pressure for Each Patient
+
+```{r}
+bpDelta = bpAfter - bpBefore
+bpDelta
+```
+
+### Calculate the Average Decrease in Blood Pressure
+
+```{r}
+
+meanBpDelta = mean(bpDelta)
+
+meanBpDelta
+```
+
+### Identify Which Subjects Had a Decrease in Blood Pressure
+
+```{r}
+
+negBpPatients = names(which(bpDelta < 0))
+
+negBpPatients
+```
+
+### Subset Difference Vector to Only Include Negatives
+
+```{r}
+
+bpDeltaNeg = bpDelta[negBpPatients]
+
+bpDeltaNeg
+
+```
+
+### Average Blood Pressure Decrease in Patients Whose Blood Pressure Decreased
+
+```{r}
+meanBpDeltaNeg = mean(bpDeltaNeg)
+
+meanBpDeltaNeg
+```
+
+## Task 2
+
+### Create Data Frame
+
+```{r}
+bpDf = data.frame(patient = names, before = bpBefore, after = bpAfter, delta = bpDelta)
+
+head(bpDf)
+
+```
+
+### Subset Dataframe on Negative
+
+```{r}
+
+bpDf[bpDf$delta < 0, ]
+
+```
+
+### Add Column if Post BP Less than 120:
+
+```{r}
+
+bpDf["bpLow"] = bpDf$after < 120
+
+bpDf
+```
+
+### Print Data Frame:
+
+```{r}
+knitr::kable(bpDf)
+```
+
+## Task 3
+
+### Create Placebo Dataframe
+
+```{r}
+
+bpBeforePlacebo = c(138, 135, 147, 117, 152, 134, 114, 121, 131, 130)
+bpAfterPlacebo = c(105, 136, 123, 130, 134, 143, 135, 139, 120, 124)
+namesPlacebo = paste("Subject", 1:10, sep = "_")
+bpDeltaPlacebo = bpAfterPlacebo - bpBeforePlacebo
+
+bpPlaceboDf = data.frame(patient = namesPlacebo, before = bpBeforePlacebo, after = bpAfterPlacebo, delta = bpDeltaPlacebo)
+
+head(bpPlaceboDf)
+```
+
+### Create List with Two Elements (Treatment / Placebo)
+
+```{r}
+
+experiments = list(treatment = bpDf, placebo = bpPlaceboDf)
+
+str(experiments, max.level = 1)
+```
+
+### Access First Element Using 3 Different Commands
+
+```{r}
+experiments$treatment
+
+```
+
+```{r}
+data.frame(experiments[1])
+```
+
+```{r}
+experiments[[1]]
+```
+
+### Access the the "before" column of the "placebo" dataframe:
+
+```{r}
+
+experiments$placebo$before
+
+```
+
+## Task 4
+
+### Add a column in each dataframe called "Status"
+
+```{r}
+
+experiments$treatment$status = character(20)
+experiments$placebo$status = character(10)
+
+experiments$treatment$status
+
+```
+
+### Update Status for Treatment
+
+```{r}
+
+for (i in 1:length(experiments$treatment$patient)){
+  bpPost = experiments$treatment[i, ]$after
+  if (bpPost <= 120){
+    experiments$treatment[i, ]$status = "optimal"
+  }
+  else if (bpPost <= 130){
+    experiments$treatment[i, ]$status = "borderline"
+  }
+  else{
+    experiments$treatment[i, ]$status = "high"
+  }
+  
+}
+
+experiments$treatment
+```
+
+### Repeat for High
+
+```{r}
+for (i in 1:length(experiments$placebo$patient)){
+  bpPost = experiments$placebo[i, ]$after
+  if (bpPost <= 120){
+    experiments$placebo[i, ]$status = "optimal"
+  }
+  else if (bpPost <= 130){
+    experiments$placebo[i, ]$status = "borderline"
+  }
+  else{
+    experiments$placebo[i, ]$status = "high"
+  }
+  
+}
+
+experiments$placebo
+```
+
+takes in a list with two data frames in it (a treatment and a placebo data frame) as an argument.
+Give no default value.
+• takes in an R function (that would find a summary of a numeric column) with the default value
+being set to "mean" (notice this is a quoted string).
+• Finds the statistic of interest (as defined by the user input) for the pre, post, and diff columns
+of both data frames.– Use my_fun \<- get(stat) within the function to get the function from the quoted string.
+• These six values should then be returned as a named list with meaningful names- this is a
+somewhat challenging part!
+4
+– I’m going to let you consider what to do but you might create a vector of names that is
+created dynamically based on the statistic passed, create a vector with the actual statistic
+values, and then assign names() to your vector. Then return that (an atomic vector with
+names can be returned instead of a list).
+• Finally, apply your function to you list of data frames from previous. Use it without specifying
+your statistic, with specifying your statistic as "var", "sd", "min", and "max".
+
+## Task 5
+
+```{r}
+
+get_summary_stat = function(experiment, fun = "mean"){
+  
+  my_fun = get(fun)
+  types = c("treatment", "placebo")
+  cols = c("before", "after", "delta")
+  statsCollection = c(
+    tb = 0,
+    ta = 0,
+    td = 0,
+    pb = 0,
+    pa = 0,
+    pd = 0
+  )
+  
+  i = 1 ## use this to count up
+  for (type in 1:length(types)){
+    for (col in 1:length(cols)){
+      j = types[type]
+      k = cols[col]
+      
+      statsCollection[i] = my_fun(experiment[[j]][[k]])
+      
+      text = paste(j , k , fun)
+      
+      names(statsCollection)[i] = c(text)
+      i = i + 1
+    }
+  }
+  
+  return (statsCollection)
+}
+
+get_summary_stat(experiments)
+
+```
+
+```{r}
+
+print(get_summary_stat(experiments, "sd"))
+print(get_summary_stat(experiments, "min"))
+print(get_summary_stat(experiments, "max"))
+print(get_summary_stat(experiments, "var"))
+```
