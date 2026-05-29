@@ -3,3 +3,32 @@ title: "HW2"
 format: html
 editor: visual
 ---
+
+```{r}
+# 1. Create vectors for pre and post measurements
+pre_bptreatment <- c(130, 128, 116, 124, 133, 134, 118, 126, 114, 127, 141, 138, 128, 140, 137, 131, 120, 128, 139, 135)
+post_bptreatment <- c(114, 98, 113, 99, 107, 116, 113, 111, 119, 117, 101, 119, 130, 122, 106, 106, 124, 102, 117, 113)
+
+# 2. Assign names to the vector elements
+names(pre_bp) <- paste("Subject", 1:20, sep = "_")
+names(post_bp) <- paste("Subject", 1:20, sep = "_")
+
+# 3. Calculate the change in blood pressure (pre - post)
+diff_bp <- pre_bp - post_bp
+
+# 4. Calculate the average decrease across all patients
+avg_decrease <- mean(diff_bp)
+print(paste("Average decrease:", avg_decrease))
+
+# 5. Determine which patients experienced a decrease (positive change)
+# Using which() returns the indices and names associated with a positive change
+positive_change_indices <- which(diff_bp > 0)
+
+# 6. Subset the vector of differences to only positive changes
+positive_changes <- diff_bp[positive_change_indices]
+
+# 7. Calculate average decrease only for those who saw a positive change
+avg_positive_decrease <- mean(positive_changes)
+print(paste("Average decrease for patients with positive change:", avg_positive_decrease))
+```
+
